@@ -1,37 +1,80 @@
-import { Tabs } from 'expo-router';
+import { Text, View, Image } from 'react-native';
 import React from 'react';
+import { Tabs } from 'expo-router';
+import icons from '../../constants/icons'; // Ensure this path is correct
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <View className="flex items-center justify-center">
+      <Image
+        source={icon}
+        resizeMode="contain"
+        className="w-6 h-6"
+        tintColor={color}
+      />
+       <Text className={`${focused? 'font-psemibold':'font-pregular'} text-xs `} style={{color:color}}>{name}</Text>
+    </View>
+  );
+};
+
+const TabsLayout = () => {
+  return (
+    <Tabs 
+    screenOptions={{ 
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: '#FFA001',
+        tabBarInactiveTintColor: '#CDCDE0',
+        tabBarStyle: {
+            backgroundColor: '#161622',
+            borderTopWidth:1,
+            borderTopColor: '#232533',
+            height:60,
+        }
+
+    }}>
+      {/* Each tab needs to return the TabIcon component in tabBarIcon */}
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: 'Home',
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <TabIcon icon={icons.home} color={color} name="Home" focused={focused}/>
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="bookmark"
         options={{
-          title: 'Explore',
+          title: 'Bookmark',
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabIcon icon={icons.bookmark} color={color} name="Bookmark" focused={focused}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          title: 'Create',
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon icon={icons.plus} color={color} name="Create" focused={focused}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon icon={icons.profile} color={color} name="Profile" focused={focused}/>
           ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default TabsLayout;
