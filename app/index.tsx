@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { images } from '../constants'; // Ensure this path is correct
 import { CustomButton } from '@/components';
 import { StatusBar } from 'expo-status-bar';
+import { Redirect, router } from 'expo-router';
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
                 <Image source={images.path} className="w-[136px] h-[15px] absolute-bottom-2 -right-[198px]" resizeMode="contain" />
             </View>
             <Text className="text-sm font-pregular text-gray-100 mt-7 text-center"> Where creativity meets innovation: embar on a journey of limitless exploration with Aora</Text>
-            <CustomButton  title="Continue with Email" handlePress={()=>{}} containerStyles="w-full mt-7" />
+            <CustomButton  title="Continue with Email" handlePress={()=> router.push('/sign-in')} containerStyles="w-full mt-7" />
           </View>
         </ScrollView>
         <StatusBar backgroundColor="#161622" style="light" />
